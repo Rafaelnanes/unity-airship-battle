@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 33338404105739904}
   - component: {fileID: 23361906180098298}
   m_Layer: 0
-  m_Name: StarSparrow4 1
+  m_Name: Airship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
