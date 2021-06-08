@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Movement();
+    }
+
+    private void Movement()
+    {
         float xOffset = horizontalPressValue * Time.deltaTime * speed;
         var horizontalValue = Mathf.Clamp(transform.localPosition.x + xOffset, -horizontalLimit, horizontalLimit);
         float yOffset = verticalPressValue * Time.deltaTime * speed;
