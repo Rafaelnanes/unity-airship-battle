@@ -156,15 +156,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633660960354252, guid: a20b393910a825b49876ddf1fcea9676, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4633660960354252, guid: a20b393910a825b49876ddf1fcea9676, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4633660960354252, guid: a20b393910a825b49876ddf1fcea9676, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4633660960354252, guid: a20b393910a825b49876ddf1fcea9676, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -202,27 +202,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795711bf59c3c6f41b36e212e93131f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
-  horizontalLimit: 30
-  verticalLimit: 24
---- !u!143 &382984495
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382984493}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.8212368
-  m_Radius: 6.2948823
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  speedOffset: 50
+  rotationOffset: 1000
+  rotationSpeed: 4
+  horizontalPosition: 30
+  horizontalRotation: 65
+  verticalPosition: 20
+  verticalRotation: 40
 --- !u!114 &382984496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171049277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 77.8, y: 0.44, z: 22.9}
+  m_LocalPosition: {x: 77.8, y: 8.53, z: 27.15}
   m_LocalScale: {x: 0.23411813, y: 0.23411813, z: 0.23411813}
   m_Children:
   - {fileID: 78800166}
@@ -437,7 +423,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1232086526}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 8d5bf3b166942234ca997274543e096f, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 8a92034265077e0459126d622bc842f1, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1232086528
 Terrain:
