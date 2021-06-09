@@ -34,32 +34,14 @@ public class PlayerController : MonoBehaviour
         xRotate += horizontalPressValue * rotationOffset;
         xRotate = Mathf.Clamp(xRotate, -horizontalRotation, horizontalRotation);
         xRotate = horizontalPressValue == 0 ? 0 : xRotate;
-        if (horizontalPressValue == 0)
-        {
-            if (isRotatingRight())
-            {
-                float horizontalValue = move(0.3f, 0.3f);
-                transform.localPosition = new Vector3(horizontalValue, 0, 0);
-            }
-        }
         Vector3 vector3 = new Vector3(0, 0, -xRotate);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(vector3.x, vector3.y, vector3.z), rotationSpeed * Time.deltaTime);
     }
 
     private void Movement()
     {
-        Debug.Log($"transform.localEulerAngles.z: {transform.localEulerAngles.z}, horizontalPressValue : {horizontalPressValue}");
-        float horizontalIntensity = 0.5f;
-        if (horizontalPressValue == 1 && isRotatingRight())
-        {
-            horizontalIntensity = 1;
-        }
-        if (horizontalPressValue == -1 && isRotatingLeft())
-        {
-            horizontalIntensity = 1;
-        }
-
-        float horizontalValue = move(horizontalPressValue, horizontalIntensity);
+        float xOffset = horizontalPressValue * Time.deltaTime * speedOffset;
+        float horizontalValue = Mathf.Clamp(transform.localPosition.x + xOffset, -horizontalPosition, horizontalPosition);
 
         float yOffset = verticalPressValue * Time.deltaTime * speedOffset;
         float verticalValue = Mathf.Clamp(transform.localPosition.y + yOffset, -verticalPosition, verticalPosition);
@@ -67,21 +49,6 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = new Vector3(horizontalValue, verticalValue, 0);
     }
 
-    private bool isRotatingLeft()
-    {
-        return transform.localEulerAngles.z < 65;
-    }
-
-    private bool isRotatingRight()
-    {
-        return transform.localEulerAngles.z > 65;
-    }
-
-    private float move(float horizontalPressValue, float horizontalIntensity)
-    {
-        float xOffset = horizontalPressValue * Time.deltaTime * (speedOffset * horizontalIntensity);
-        return Mathf.Clamp(transform.localPosition.x + xOffset, -horizontalPosition, horizontalPosition);
-    }
 
     public void OnMovementChange(InputAction.CallbackContext context)
     {
