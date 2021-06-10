@@ -6,17 +6,21 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Speed")]
-    [SerializeField] float speedOffset = 50f;
-    [SerializeField] float rotationOffset = 10f;
-    [SerializeField] float rotationSpeed = 2f;
-    [Header("Horizontal Limit")]
-    [SerializeField] float horizontalPosition = 30f;
-    [SerializeField] float horizontalRotation = 90f;
-    [Header("Vertical Limit")]
-    [SerializeField] float verticalPosition = 20f;
-    [SerializeField] float verticalRotation = 40f;
-    float horizontalPressValue, verticalPressValue;
-    private float xRotate, yRotate;
+    [SerializeField] float MovementSpeed = 5f;
+    [SerializeField] float RotationSpeed = 10f;
+    [Header("Horizontal")]
+    [SerializeField] float HPositionLimit = 30f;
+    [SerializeField] float HRotationLimit = 30f;
+    [SerializeField] float HThrustLimit = 15f;
+    [SerializeField] float HThrustFactor = 0.05f;
+    [Header("Vertical")]
+    [SerializeField] float VPositionLimit = 20f;
+    [SerializeField] float VRotationLimit = 40f;
+    [SerializeField] float VThrustLimit = 15f;
+    [SerializeField] float VThrustFactor = 0.05f;
+    private float hPressValue, vPressValue;
+    private float hRotate, vRotate;
+    private float hThrustMovement, vThrustMovement;
 
     void Update()
     {
@@ -26,25 +30,30 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        hThrustMovement = CalculateThrust(hThrustMovement, hPressValue);
+        vThrustMovement = CalculateThrust(vThrustMovement, vPressValue);
+        Debug.Log($"hThrustMovement: {hThrustMovement}, vThrustMovement: {vThrustMovement}");
     }
 
     private void Rotation()
     {
-        xRotate += horizontalPressValue * rotationOffset;
-        xRotate = Mathf.Clamp(xRotate, -horizontalRotation, horizontalRotation);
-        xRotate = horizontalPressValue == 0 ? 0 : xRotate;
-        Vector3 vector3 = new Vector3(0, 0, -xRotate);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(vector3.x, vector3.y, vector3.z), rotationSpeed * Time.deltaTime);
+        hRotate += hPressValue * RotationSpeed;
+        hRotate = Mathf.Clamp(hRotate, -HRotationLimit, HRotationLimit);
+        hRotate = hPressValue == 0 ? 0 : hRotate;
+        Vector3 vector3 = new Vector3(0, 0, -hRotate);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(vector3.x, vector3.y, vector3.z), RotationSpeed * Time.deltaTime);
     }
 
     private void Movement()
     {
-        float xOffset = horizontalPressValue * Time.deltaTime * speedOffset;
-        float horizontalValue = Mathf.Clamp(transform.localPosition.x + xOffset, -horizontalPosition, horizontalPosition);
 
-        float yOffset = verticalPressValue * Time.deltaTime * speedOffset;
-        float verticalValue = Mathf.Clamp(transform.localPosition.y + yOffset, -verticalPosition, verticalPosition);
+        hThrustMovement = Mathf.Clamp(hThrustMovement, -HThrustLimit, HThrustLimit);
+        float hOffset = hPressValue * Time.deltaTime * MovementSpeed;
+        float horizontalValue = Mathf.Clamp(transform.localPosition.x + hOffset + (hThrustMovement * HThrustFactor), -HPositionLimit, HPositionLimit);
+
+        vThrustMovement = Mathf.Clamp(vThrustMovement, -VThrustLimit, VThrustLimit);
+        float vOffset = vPressValue * Time.deltaTime * MovementSpeed;
+        float verticalValue = Mathf.Clamp(transform.localPosition.y + vOffset + (vThrustMovement * VThrustFactor), -VPositionLimit, VPositionLimit);
 
         transform.localPosition = new Vector3(horizontalValue, verticalValue, 0);
     }
@@ -53,8 +62,29 @@ public class PlayerController : MonoBehaviour
     public void OnMovementChange(InputAction.CallbackContext context)
     {
         Vector2 direction = context.ReadValue<Vector2>();
-        horizontalPressValue = direction.x;
-        verticalPressValue = direction.y;
+        hPressValue = direction.x;
+        vPressValue = direction.y;
+    }
+
+    private float CalculateThrust(float thrustMovement, float pressValue)
+    {
+        thrustMovement += pressValue;
+        if (pressValue == 0)
+        {
+            if (thrustMovement > 0)
+            {
+                thrustMovement--;
+            }
+            if (thrustMovement < 0)
+            {
+                thrustMovement++;
+            }
+            if (thrustMovement < 1 && thrustMovement > -1)
+            {
+                thrustMovement = 0;
+            }
+        }
+        return thrustMovement;
     }
 
 
