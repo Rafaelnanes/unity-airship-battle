@@ -37,10 +37,9 @@ public class PlayerController : MonoBehaviour
 
     private void Rotation()
     {
-        hRotate += hPressValue * RotationSpeed;
-        hRotate = Mathf.Clamp(hRotate, -HRotationLimit, HRotationLimit);
-        hRotate = hPressValue == 0 ? 0 : hRotate;
-        Vector3 vector3 = new Vector3(0, 0, -hRotate);
+        hRotate = CalculateRotation(hRotate, hPressValue, HRotationLimit);
+        vRotate = CalculateRotation(vRotate, vPressValue, VRotationLimit);
+        Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(vector3.x, vector3.y, vector3.z), RotationSpeed * Time.deltaTime);
     }
 
@@ -64,6 +63,14 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = context.ReadValue<Vector2>();
         hPressValue = direction.x;
         vPressValue = direction.y;
+    }
+
+    private float CalculateRotation(float rotationValue, float pressValue, float rotationLimit)
+    {
+        rotationValue += pressValue * RotationSpeed;
+        rotationValue = Mathf.Clamp(rotationValue, -rotationLimit, rotationLimit);
+        rotationValue = pressValue == 0 ? 0 : rotationValue;
+        return rotationValue;
     }
 
     private float CalculateThrust(float thrustMovement, float pressValue)

@@ -202,13 +202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795711bf59c3c6f41b36e212e93131f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOffset: 50
-  rotationOffset: 1000
-  rotationSpeed: 10
-  horizontalPosition: 30
-  horizontalRotation: 30
-  verticalPosition: 20
-  verticalRotation: 30
+  MovementSpeed: 5
+  RotationSpeed: 10
+  HPositionLimit: 30
+  HRotationLimit: 30
+  HThrustLimit: 15
+  HThrustFactor: 0.05
+  VPositionLimit: 20
+  VRotationLimit: 15
+  VThrustLimit: 15
+  VThrustFactor: 0.05
 --- !u!114 &382984496
 MonoBehaviour:
   m_ObjectHideFlags: 0
