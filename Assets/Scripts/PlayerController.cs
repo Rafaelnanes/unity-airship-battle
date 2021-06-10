@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         hThrustMovement = CalculateThrust(hThrustMovement, hPressValue);
         vThrustMovement = CalculateThrust(vThrustMovement, vPressValue);
-        Debug.Log($"hThrustMovement: {hThrustMovement}, vThrustMovement: {vThrustMovement}");
     }
 
     private void Rotation()
