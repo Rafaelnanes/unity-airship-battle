@@ -10200,7 +10200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6499866306098114619, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 60
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6499866306098114619, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
       propertyPath: InitialModule.startSpeed.scalar

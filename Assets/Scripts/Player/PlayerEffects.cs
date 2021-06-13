@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerEffects : MonoBehaviour
 {
 
-    public GameObject rightSmoke;
+    [SerializeField] GameObject rightSmoke;
     [SerializeField] GameObject leftSmoke;
     [SerializeField] GameObject centerSmoke;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Speed")]
     [SerializeField] float MovementSpeed = 5f;
@@ -18,9 +18,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float VRotationLimit = 40f;
     [SerializeField] float VThrustLimit = 15f;
     [SerializeField] float VThrustFactor = 0.05f;
+    [Header("On Damage")]
+    [SerializeField] float rotationDamageFactor = 2f;
     private float hPressValue, vPressValue;
     private float hRotate, vRotate;
     private float hThrustMovement, vThrustMovement;
+    private bool shake;
+    private Quaternion destinationQuaternion;
 
     void Update()
     {
@@ -39,7 +43,12 @@ public class PlayerController : MonoBehaviour
         hRotate = CalculateRotation(hRotate, hPressValue, HRotationLimit);
         vRotate = CalculateRotation(vRotate, vPressValue, VRotationLimit);
         Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(vector3.x, vector3.y, vector3.z), RotationSpeed * Time.deltaTime);
+        Quaternion rotationCalculated = Quaternion.Euler(vector3.x, vector3.y, vector3.z);
+        if (!shake)
+        {
+            rotationCalculated = destinationQuaternion;
+        }
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, rotationCalculated, RotationSpeed * Time.deltaTime);
     }
 
     private void Movement()
@@ -56,6 +65,10 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = new Vector3(horizontalValue, verticalValue, 0);
     }
 
+    public void Shake()
+    {
+        shake = true;
+    }
 
     public void OnMovementChange(InputAction.CallbackContext context)
     {

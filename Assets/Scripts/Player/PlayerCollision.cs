@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-
-    private PlayerEffects playerEffects;
+    [SerializeField] float threshold = 0.3f;
+    private PlayerAction playerAction;
 
     private void Start()
     {
-        playerEffects = FindObjectOfType<PlayerEffects>();
+        playerAction = FindObjectOfType<PlayerAction>();
     }
 
 
@@ -20,21 +20,24 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Name: {name} -> Trigger: {other.gameObject.name}");
+
+        Debug.Log($"Name: {name} -> Collidiu em: {other.gameObject.name} -> {other.gameObject.transform.position - transform.position}");
+        float collisionUpperValue = (other.gameObject.transform.position - transform.position).y;
+        float collisionCenterValue = (other.gameObject.transform.position - transform.position).z;
+
         if (name.Equals("Collider Left"))
         {
-            playerEffects.OnDamageLeft();
+            playerAction.OnDamageLeft(collisionUpperValue, collisionCenterValue);
         }
 
         if (name.Equals("Collider Right"))
         {
-            playerEffects.OnDamageRight();
+            playerAction.OnDamageRight(collisionUpperValue, collisionCenterValue);
         }
 
         if (name.Equals("Collider Center"))
         {
-            playerEffects.OnDamageCenter();
+            playerAction.OnDamageCenter(collisionUpperValue, collisionCenterValue);
         }
-
     }
 }
