@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField] float imunityTimeLimit = 3f;
+    private Animator animator;
     private float imunityTimeTriggered;
     private PlayerEffects playerEffects;
     private PlayerMovement playerMovement;
@@ -12,8 +13,9 @@ public class PlayerAction : MonoBehaviour
 
     private void Start()
     {
-        playerEffects = FindObjectOfType<PlayerEffects>();
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerEffects = GetComponent<PlayerEffects>();
+        playerMovement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -32,14 +34,14 @@ public class PlayerAction : MonoBehaviour
     #region OnDamage
     public void OnDamageRight(float collisionUpperValue, float collisionCenterValue)
     {
-        Debug.Log($"Right Collision: {collisionUpperValue} / {collisionCenterValue}");
         if (isImune)
         {
             return;
         }
 
         playerEffects.OnDamageRight();
-        playerMovement.Shake();
+        //playerMovement.Shaking(true);
+        ShakeRight();
         SetImunity();
     }
 
@@ -50,7 +52,8 @@ public class PlayerAction : MonoBehaviour
             return;
         }
         playerEffects.OnDamageLeft();
-        playerMovement.Shake();
+        //playerMovement.Shaking(true);
+        ShakeLeft();
         isImune = true;
     }
 
@@ -61,8 +64,28 @@ public class PlayerAction : MonoBehaviour
             return;
         }
         playerEffects.OnDamageCenter();
-        playerMovement.Shake();
+        //playerMovement.Shaking(true);
+        float random = Random.Range(0f, 1f);
+        if (random > 0.5)
+        {
+            ShakeRight();
+        }
+        else
+        {
+            ShakeLeft();
+        }
+
         isImune = true;
+    }
+
+    private void ShakeRight()
+    {
+        //animator.SetTrigger("Shake Right");
+    }
+
+    private void ShakeLeft()
+    {
+        //animator.SetTrigger("Shake Left");
     }
 
     #endregion

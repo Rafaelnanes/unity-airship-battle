@@ -21,7 +21,7 @@ public class PlayerCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log($"Name: {name} -> Collidiu em: {other.gameObject.name} -> {other.gameObject.transform.position - transform.position}");
+        //Debug.Log($"Name: {name} -> Collidiu em: {other.gameObject.name} -> {other.gameObject.transform.position - transform.position}");
         float collisionUpperValue = (other.gameObject.transform.position - transform.position).y;
         float collisionCenterValue = (other.gameObject.transform.position - transform.position).z;
 

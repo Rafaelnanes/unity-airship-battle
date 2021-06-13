@@ -18,13 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float VRotationLimit = 40f;
     [SerializeField] float VThrustLimit = 15f;
     [SerializeField] float VThrustFactor = 0.05f;
-    [Header("On Damage")]
-    [SerializeField] float rotationDamageFactor = 2f;
     private float hPressValue, vPressValue;
     private float hRotate, vRotate;
     private float hThrustMovement, vThrustMovement;
-    private bool shake;
-    private Quaternion destinationQuaternion;
+    private bool shaking;
 
     void Update()
     {
@@ -42,18 +39,14 @@ public class PlayerMovement : MonoBehaviour
     {
         hRotate = CalculateRotation(hRotate, hPressValue, HRotationLimit);
         vRotate = CalculateRotation(vRotate, vPressValue, VRotationLimit);
-        Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
-        Quaternion rotationCalculated = Quaternion.Euler(vector3.x, vector3.y, vector3.z);
-        if (!shake)
-        {
-            rotationCalculated = destinationQuaternion;
-        }
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, rotationCalculated, RotationSpeed * Time.deltaTime);
+        //Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
+        Debug.Log(hRotate);
+        Vector3 vector3 = new Vector3(-vRotate, 0, 30f);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(vector3), RotationSpeed * Time.deltaTime);
     }
 
     private void Movement()
     {
-
         hThrustMovement = Mathf.Clamp(hThrustMovement, -HThrustLimit, HThrustLimit);
         float hOffset = hPressValue * Time.deltaTime * MovementSpeed;
         float horizontalValue = Mathf.Clamp(transform.localPosition.x + hOffset + (hThrustMovement * HThrustFactor), -HPositionLimit, HPositionLimit);
@@ -65,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = new Vector3(horizontalValue, verticalValue, 0);
     }
 
-    public void Shake()
+    public void Shaking(bool shaking)
     {
-        shake = true;
+        this.shaking = shaking;
     }
 
     public void OnMovementChange(InputAction.CallbackContext context)
@@ -82,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         rotationValue += pressValue * RotationSpeed;
         rotationValue = Mathf.Clamp(rotationValue, -rotationLimit, rotationLimit);
         rotationValue = pressValue == 0 ? 0 : rotationValue;
+        Debug.Log($"rotationValue: {rotationValue} / pressValue: {pressValue} / rotationLimit: {rotationLimit}");
         return rotationValue;
     }
 

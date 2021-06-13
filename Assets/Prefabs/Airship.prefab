@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bcc97295b26e84588b4fa4043ec0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  threshold: 0.3
 --- !u!1 &951814460779901761
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +290,7 @@ MonoBehaviour:
   VRotationLimit: 15
   VThrustLimit: 15
   VThrustFactor: 0.05
+  rotationDamageFactor: 90
 --- !u!114 &1101353481097762826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b984962e3ac0d49b4b2b1ba5a2b048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imunityTimeLimit: 3
 --- !u!1 &2150397303026727315
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bcc97295b26e84588b4fa4043ec0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  threshold: 0.3
 --- !u!1 &8033724531703953281
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bcc97295b26e84588b4fa4043ec0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  threshold: 0.3
 --- !u!1 &9179426233290724498
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 939627993089502554, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.697
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 939627993089502554, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
       propertyPath: m_LocalPosition.z
