@@ -20,6 +20,7 @@ public class PlayerAction : MonoBehaviour
 
     private void Update()
     {
+
         if (Time.realtimeSinceStartup > 4)
         {
             playerMovement.enabled = true;
@@ -27,44 +28,41 @@ public class PlayerAction : MonoBehaviour
         if (isImune && Time.time - imunityTimeTriggered > imunityTimeLimit)
         {
             isImune = false;
+            Debug.Log($"Imunity False");
         }
 
     }
 
     #region OnDamage
-    public void OnDamageRight(float collisionUpperValue, float collisionCenterValue)
+    public void OnDamageRight()
     {
         if (isImune)
         {
             return;
         }
 
-        playerEffects.OnDamageRight();
-        //playerMovement.Shaking(true);
         ShakeRight();
+        playerEffects.OnDamageRight();
         SetImunity();
     }
 
-    public void OnDamageLeft(float collisionUpperValue, float collisionCenterValue)
+    public void OnDamageLeft()
     {
         if (isImune)
         {
             return;
         }
-        playerEffects.OnDamageLeft();
-        //playerMovement.Shaking(true);
         ShakeLeft();
-        isImune = true;
+        playerEffects.OnDamageLeft();
+        SetImunity();
     }
 
-    public void OnDamageCenter(float collisionUpperValue, float collisionCenterValue)
+    public void OnDamageCenter()
     {
         if (isImune)
         {
             return;
         }
-        playerEffects.OnDamageCenter();
-        //playerMovement.Shaking(true);
         float random = Random.Range(0f, 1f);
         if (random > 0.5)
         {
@@ -74,18 +72,21 @@ public class PlayerAction : MonoBehaviour
         {
             ShakeLeft();
         }
+        playerEffects.OnDamageCenter();
 
-        isImune = true;
+        SetImunity();
     }
 
     private void ShakeRight()
     {
-        //animator.SetTrigger("Shake Right");
+        Debug.Log("Shake Right");
+        animator.SetTrigger("Shake Right");
     }
 
     private void ShakeLeft()
     {
-        //animator.SetTrigger("Shake Left");
+        Debug.Log("Shake Left");
+        animator.SetTrigger("Shake Left");
     }
 
     #endregion
@@ -94,6 +95,7 @@ public class PlayerAction : MonoBehaviour
     {
         isImune = true;
         imunityTimeTriggered = Time.time;
+        Debug.Log($"Imunity true");
     }
 
 }
