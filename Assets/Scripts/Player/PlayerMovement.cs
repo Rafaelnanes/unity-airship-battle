@@ -21,12 +21,24 @@ public class PlayerMovement : MonoBehaviour
     private float hPressValue, vPressValue;
     private float hRotate, vRotate;
     private float hThrustMovement, vThrustMovement;
-    private bool shaking;
+    private PlayerAction playerAction;
+
+    private void Start()
+    {
+        playerAction = GetComponent<PlayerAction>();
+    }
 
     void Update()
     {
-        //Rotation();
+        Rotation();
         Movement();
+    }
+
+    public void OnMovementChange(InputAction.CallbackContext context)
+    {
+        Vector2 direction = context.ReadValue<Vector2>();
+        hPressValue = direction.x;
+        vPressValue = direction.y;
     }
 
     private void FixedUpdate()
@@ -39,9 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         hRotate = CalculateRotation(hRotate, hPressValue, HRotationLimit);
         vRotate = CalculateRotation(vRotate, vPressValue, VRotationLimit);
-        //Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
-        Debug.Log(hRotate);
-        Vector3 vector3 = new Vector3(-vRotate, 0, 30f);
+        Vector3 vector3 = new Vector3(-vRotate, 0, -hRotate);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(vector3), RotationSpeed * Time.deltaTime);
     }
 
@@ -58,24 +68,11 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = new Vector3(horizontalValue, verticalValue, 0);
     }
 
-    public void Shaking(bool shaking)
-    {
-        this.shaking = shaking;
-    }
-
-    public void OnMovementChange(InputAction.CallbackContext context)
-    {
-        Vector2 direction = context.ReadValue<Vector2>();
-        hPressValue = direction.x;
-        vPressValue = direction.y;
-    }
-
     private float CalculateRotation(float rotationValue, float pressValue, float rotationLimit)
     {
         rotationValue += pressValue * RotationSpeed;
         rotationValue = Mathf.Clamp(rotationValue, -rotationLimit, rotationLimit);
         rotationValue = pressValue == 0 ? 0 : rotationValue;
-        Debug.Log($"rotationValue: {rotationValue} / pressValue: {pressValue} / rotationLimit: {rotationLimit}");
         return rotationValue;
     }
 
