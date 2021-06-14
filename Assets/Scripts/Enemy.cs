@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject HitEffect;
     [SerializeField] Transform Parent;
     [SerializeField] float Hp = 10f;
+    [SerializeField] int EnemyPoints = 5;
     private PlayerAction playerAction;
 
     private void Start()
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
             GameObject vfx = Instantiate(HitEffect, transform.position, quaternion);
             vfx.transform.parent = Parent.transform;
         }
+        playerAction.AddPoints(EnemyPoints);
     }
 
 }

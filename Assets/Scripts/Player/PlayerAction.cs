@@ -11,12 +11,15 @@ public class PlayerAction : MonoBehaviour
     private float imunityTimeTriggered;
     private PlayerEffects playerEffects;
     private PlayerMovement playerControl;
+    private ScoreBoard scoreBoard;
     private bool isImune;
+    private int playerScore;
 
     private void Start()
     {
         playerEffects = GetComponent<PlayerEffects>();
         playerControl = GetComponent<PlayerMovement>();
+        scoreBoard = GetComponent<ScoreBoard>();
         animator = GetComponent<Animator>();
     }
 
@@ -104,6 +107,12 @@ public class PlayerAction : MonoBehaviour
     public float GetPlayerDamage()
     {
         return PlayerDamage;
+    }
+
+    public void AddPoints(int value)
+    {
+        playerScore += value;
+        scoreBoard.SetScore(playerScore);
     }
 
     private void ShakeRight()
