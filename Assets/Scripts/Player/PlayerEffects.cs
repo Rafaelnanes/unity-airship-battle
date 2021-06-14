@@ -6,34 +6,34 @@ using UnityEngine;
 public class PlayerEffects : MonoBehaviour
 {
 
-    [SerializeField] GameObject rightSmoke;
-    [SerializeField] GameObject leftSmoke;
-    [SerializeField] GameObject centerSmoke;
-    [SerializeField] GameObject fireThrust;
-    [SerializeField] GameObject[] fire;
+    [SerializeField] GameObject RightSmoke;
+    [SerializeField] GameObject LeftSmoke;
+    [SerializeField] GameObject CenterSmoke;
+    [SerializeField] GameObject FireThrust;
+    [SerializeField] GameObject[] Fire;
 
     public void OnDamageRight()
     {
-        rightSmoke.GetComponent<ParticleSystem>().Play();
+        RightSmoke.GetComponent<ParticleSystem>().Play();
     }
 
     public void OnDamageLeft()
     {
-        leftSmoke.GetComponent<ParticleSystem>().Play();
+        LeftSmoke.GetComponent<ParticleSystem>().Play();
     }
 
     public void OnDamageCenter()
     {
-        centerSmoke.GetComponent<ParticleSystem>().Play();
+        CenterSmoke.GetComponent<ParticleSystem>().Play();
     }
     public void TurnOnEngine()
     {
-        fireThrust.GetComponent<ParticleSystem>().Play();
+        FireThrust.GetComponent<ParticleSystem>().Play();
     }
 
     public void OnFire(bool isOnFire)
     {
-        foreach (GameObject localFire in fire)
+        foreach (GameObject localFire in Fire)
         {
             if (isOnFire)
             {

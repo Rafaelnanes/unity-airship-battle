@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
-    [SerializeField] float imunityTimeLimit = 3f;
+    [SerializeField] float ImunityTimeLimit = 3f;
+    [SerializeField] float PlayerDamage = 2f;
     private Animator animator;
     private float imunityTimeTriggered;
     private PlayerEffects playerEffects;
@@ -37,7 +38,7 @@ public class PlayerAction : MonoBehaviour
 
     private void DisableImunity()
     {
-        if (isImune && Time.time - imunityTimeTriggered > imunityTimeLimit)
+        if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
         {
             isImune = false;
         }
@@ -98,6 +99,11 @@ public class PlayerAction : MonoBehaviour
         playerEffects.OnDamageCenter();
 
         SetImunity();
+    }
+
+    public float GetPlayerDamage()
+    {
+        return PlayerDamage;
     }
 
     private void ShakeRight()
