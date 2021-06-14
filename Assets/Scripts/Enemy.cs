@@ -9,7 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject HitEffect;
     [SerializeField] Transform Parent;
     [SerializeField] float Hp = 10f;
-    [SerializeField] int EnemyPoints = 5;
+    [SerializeField] int EnemyHitScore = 5;
+    [SerializeField] int EnemyKillScore = 50;
     private PlayerAction playerAction;
 
     private void Start()
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
             GameObject vfx = Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
             vfx.transform.parent = Parent.transform;
             Destroy(gameObject);
+            playerAction.AddPoints(EnemyKillScore);
         }
         else
         {
@@ -32,8 +34,8 @@ public class Enemy : MonoBehaviour
             Vector3 vector3 = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             GameObject vfx = Instantiate(HitEffect, transform.position, quaternion);
             vfx.transform.parent = Parent.transform;
+            playerAction.AddPoints(EnemyHitScore);
         }
-        playerAction.AddPoints(EnemyPoints);
     }
 
 }

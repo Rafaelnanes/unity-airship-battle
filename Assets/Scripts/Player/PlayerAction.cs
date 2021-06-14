@@ -7,19 +7,23 @@ public class PlayerAction : MonoBehaviour
 {
     [SerializeField] float ImunityTimeLimit = 3f;
     [SerializeField] float PlayerDamage = 2f;
+    [Header("Ammo")]
+    [SerializeField] float RechargeTime = 3.5f;
+    [SerializeField] float AmmoFactor = 0.05f;
     private Animator animator;
     private float imunityTimeTriggered;
     private PlayerEffects playerEffects;
     private PlayerMovement playerControl;
-    private ScoreBoard scoreBoard;
+    private GameUI gameUI;
     private bool isImune;
     private int playerScore;
+    private bool isShootEnabled;
 
     private void Start()
     {
         playerEffects = GetComponent<PlayerEffects>();
         playerControl = GetComponent<PlayerMovement>();
-        scoreBoard = GetComponent<ScoreBoard>();
+        gameUI = GetComponent<GameUI>();
         animator = GetComponent<Animator>();
     }
 
@@ -30,30 +34,25 @@ public class PlayerAction : MonoBehaviour
         DisableImunity();
     }
 
-    private void BeginThrustEffect()
+    public void OnFire(InputAction.CallbackContext context)
     {
-
-        if (Time.realtimeSinceStartup > 4)
+        if (!isShootEnabled)
         {
-            playerEffects.TurnOnEngine();
+            return;
         }
+
+        bool isOnFire = context.ReadValue<float>() > 0;
+        if (isOnFire)
+        {
+            gameUI.DecreaseAmmo();
+        }
+        else
+        {
+            gameUI.IncreaseAmmo();
+        }
+        playerEffects.OnFire(isOnFire);
     }
 
-    private void DisableImunity()
-    {
-        if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
-        {
-            isImune = false;
-        }
-    }
-
-    private void EnableMovement()
-    {
-        if (Time.realtimeSinceStartup > 4)
-        {
-            playerControl.enabled = true;
-        }
-    }
 
     #region OnDamage
     public void OnDamageRight()
@@ -66,11 +65,6 @@ public class PlayerAction : MonoBehaviour
         ShakeRight();
         playerEffects.OnDamageRight();
         SetImunity();
-    }
-
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        playerEffects.OnFire(context.ReadValue<float>() > 0);
     }
 
     public void OnDamageLeft()
@@ -112,7 +106,7 @@ public class PlayerAction : MonoBehaviour
     public void AddPoints(int value)
     {
         playerScore += value;
-        scoreBoard.SetScore(playerScore);
+        gameUI.SetScore(playerScore);
     }
 
     private void ShakeRight()
@@ -127,10 +121,62 @@ public class PlayerAction : MonoBehaviour
 
     #endregion
 
+    #region Imunity
+    private void DisableImunity()
+    {
+        if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
+        {
+            isImune = false;
+        }
+    }
+
     private void SetImunity()
     {
         isImune = true;
         imunityTimeTriggered = Time.time;
+    }
+    #endregion
+
+    #region Ammo
+    public void SetFire(bool canShoot)
+    {
+        if (canShoot)
+        {
+            isShootEnabled = true;
+        }
+        else
+        {
+            isShootEnabled = false;
+            playerEffects.OnFire(false);
+        }
+    }
+
+    public float GetAmmoFactor()
+    {
+        return AmmoFactor;
+    }
+
+    public float GetRechargeTime()
+    {
+        return RechargeTime;
+    }
+
+    #endregion
+
+    private void BeginThrustEffect()
+    {
+        if (Time.realtimeSinceStartup > 4)
+        {
+            playerEffects.TurnOnEngine();
+        }
+    }
+
+    private void EnableMovement()
+    {
+        if (Time.realtimeSinceStartup > 4)
+        {
+            playerControl.enabled = true;
+        }
     }
 
 }
