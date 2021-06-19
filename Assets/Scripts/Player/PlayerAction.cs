@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerAction : MonoBehaviour
 {
+    [Header("Imunity")]
     [SerializeField] float ImunityTimeLimit = 3f;
+    [SerializeField] MeshRenderer Shield;
+    [Header("Damage")]
     [SerializeField] float PlayerDamage = 2f;
     [Header("Ammo")]
     [SerializeField] float RechargeTime = 3.5f;
@@ -127,12 +130,14 @@ public class PlayerAction : MonoBehaviour
         if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
         {
             isImune = false;
+            Shield.enabled = false;
         }
     }
 
     private void SetImunity()
     {
         isImune = true;
+        Shield.enabled = true;
         imunityTimeTriggered = Time.time;
     }
     #endregion
