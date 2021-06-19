@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour
         playerActions = GetComponent<PlayerActions>();
         playerMovement = GetComponent<PlayerMovement>();
     }
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnShoot(InputAction.CallbackContext context)
     {
-        playerActions.OnFire(context.ReadValue<float>());
+        playerActions.OnShoot(context.ReadValue<float>());
     }
 
     public void OnMovementChange(InputAction.CallbackContext context)

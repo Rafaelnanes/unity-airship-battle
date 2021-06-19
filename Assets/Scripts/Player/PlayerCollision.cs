@@ -21,17 +21,17 @@ public class PlayerCollision : MonoBehaviour
     {
         if (name.Equals("Collider Left"))
         {
-            playerAction.OnDamageLeft();
+            playerAction.OnHit(PlayerHit.Location.LEFT);
         }
 
         if (name.Equals("Collider Right"))
         {
-            playerAction.OnDamageRight();
+            playerAction.OnHit(PlayerHit.Location.RIGHT);
         }
 
         if (name.Equals("Collider Center"))
         {
-            playerAction.OnDamageCenter();
+            playerAction.OnHit(PlayerHit.Location.CENTER);
         }
     }
 }

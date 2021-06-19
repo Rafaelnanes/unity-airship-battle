@@ -7,27 +7,27 @@ public class PlayerActions : MonoBehaviour
 {
     [Header("Imunity")]
     [SerializeField] float ImunityTimeLimit = 3f;
-    [SerializeField] GameObject Shield;
     [Header("Damage")]
     [SerializeField] float PlayerDamage = 2f;
     [Header("Ammo")]
-    [SerializeField] float RechargeTime = 3.5f;
+    [SerializeField] float AmmoRechargeTime = 3.5f;
     [SerializeField] float AmmoFactor = 0.05f;
-    private Animator animator;
-    private float imunityTimeTriggered;
     private PlayerEffects playerEffects;
     private PlayerMovement playerControl;
+    private PlayerShoot playerShoot;
+    private PlayerImunity playerImunity;
+    private PlayerHit playerHit;
     private GameUI gameUI;
-    private bool isImune;
     private int playerScore;
-    private bool isShootEnabled;
 
     private void Start()
     {
         playerEffects = GetComponent<PlayerEffects>();
         playerControl = GetComponent<PlayerMovement>();
+        playerShoot = GetComponent<PlayerShoot>();
+        playerHit = GetComponent<PlayerHit>();
+        playerImunity = GetComponent<PlayerImunity>();
         gameUI = GetComponent<GameUI>();
-        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -37,69 +37,9 @@ public class PlayerActions : MonoBehaviour
         DisableImunity();
     }
 
-    public void OnFire(float pressValue)
+    public void OnHit(PlayerHit.Location location)
     {
-        Debug.Log(pressValue);
-        if (!isShootEnabled)
-        {
-            return;
-        }
-
-        bool isOnFire = pressValue > 0;
-        if (isOnFire)
-        {
-            gameUI.DecreaseAmmo();
-        }
-        else
-        {
-            gameUI.IncreaseAmmo();
-        }
-        playerEffects.OnFire(isOnFire);
-    }
-
-
-    #region OnDamage
-    public void OnDamageRight()
-    {
-        if (isImune)
-        {
-            return;
-        }
-
-        ShakeRight();
-        playerEffects.OnDamageRight();
-        SetImunity();
-    }
-
-    public void OnDamageLeft()
-    {
-        if (isImune)
-        {
-            return;
-        }
-        ShakeLeft();
-        playerEffects.OnDamageLeft();
-        SetImunity();
-    }
-
-    public void OnDamageCenter()
-    {
-        if (isImune)
-        {
-            return;
-        }
-        float random = Random.Range(0f, 1f);
-        if (random > 0.5)
-        {
-            ShakeRight();
-        }
-        else
-        {
-            ShakeLeft();
-        }
-        playerEffects.OnDamageCenter();
-
-        SetImunity();
+        playerHit.OnHit(location);
     }
 
     public float GetPlayerDamage()
@@ -113,48 +53,32 @@ public class PlayerActions : MonoBehaviour
         gameUI.SetScore(playerScore);
     }
 
-    private void ShakeRight()
-    {
-        animator.SetTrigger("Shake Right");
-    }
-
-    private void ShakeLeft()
-    {
-        animator.SetTrigger("Shake Left");
-    }
-
-    #endregion
-
     #region Imunity
     private void DisableImunity()
     {
-        if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
-        {
-            isImune = false;
-            Shield.SetActive(false);
-        }
+        playerImunity.Disable();
     }
 
-    private void SetImunity()
+    public float GetImunityTimeLimit()
     {
-        isImune = true;
-        Shield.SetActive(true);
-        imunityTimeTriggered = Time.time;
+        return ImunityTimeLimit;
     }
     #endregion
 
-    #region Ammo
-    public void SetFire(bool canShoot)
+    #region Shoot & Ammo
+    public void OnShoot(float pressValue)
     {
-        if (canShoot)
-        {
-            isShootEnabled = true;
-        }
-        else
-        {
-            isShootEnabled = false;
-            playerEffects.OnFire(false);
-        }
+        playerShoot.OnShoot(pressValue);
+    }
+
+    public void HasAmmo()
+    {
+        playerShoot.HasAmmo();
+    }
+
+    public void OutOfAmmo()
+    {
+        playerShoot.OutOfAmmo();
     }
 
     public float GetAmmoFactor()
@@ -164,7 +88,7 @@ public class PlayerActions : MonoBehaviour
 
     public float GetRechargeTime()
     {
-        return RechargeTime;
+        return AmmoRechargeTime;
     }
 
     #endregion

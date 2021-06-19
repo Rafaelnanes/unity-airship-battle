@@ -38,7 +38,7 @@ public class GameUI : MonoBehaviour
     {
         if (ammoValue == 0)
         {
-            playerAction.SetFire(false);
+            playerAction.OutOfAmmo();
             isOnFire = false;
         }
     }
@@ -66,12 +66,12 @@ public class GameUI : MonoBehaviour
             ammoImage.color = Color.red;
             if (!isOnFire)
             {
-                playerAction.SetFire(false);
+                playerAction.OutOfAmmo();
             }
         }
         else
         {
-            playerAction.SetFire(true);
+            playerAction.HasAmmo();
             ammoImage.color = Color.green;
         }
     }

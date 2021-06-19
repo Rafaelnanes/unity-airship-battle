@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 1171049278}
   - component: {fileID: 1171049279}
   m_Layer: 0
-  m_Name: PlayerHolder
+  m_Name: == PlayerHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,7 +1186,7 @@ Transform:
   - {fileID: 4633661022358249}
   - {fileID: 1542731462}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1171049279
 Animator:
@@ -1361,7 +1361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1238648382
 PrefabInstance:
@@ -2223,6 +2223,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2035361794130691264, guid: 93acfb8a9e2433a4e9d932168259084d, type: 3}
   m_PrefabInstance: {fileID: 470167654}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977205245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3952487327233620227, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
+  m_PrefabInstance: {fileID: 1101353481393495071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1983668850 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2035361794130691264, guid: 93acfb8a9e2433a4e9d932168259084d, type: 3}
@@ -2281,7 +2286,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2066516192 stripped
 Transform:
@@ -2353,10 +2358,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4260015790101228466, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
-      propertyPath: AmmoFactor
-      value: 0.1
+    - target: {fileID: 1395641536537549098, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3952487327233620227, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260015790101228466, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
+      propertyPath: Shield
+      value: 
+      objectReference: {fileID: 1977205245}
     - target: {fileID: 4556743470812389059, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
       propertyPath: AmmoValue
       value: 
@@ -2365,5 +2378,6 @@ PrefabInstance:
       propertyPath: PlayerScore
       value: 
       objectReference: {fileID: 1325498324}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 211466222001639817, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
