@@ -8,7 +8,7 @@ public class GameUI : MonoBehaviour
 {
     [SerializeField] Text PlayerScore;
     [SerializeField] GameObject AmmoValue;
-    private PlayerAction playerAction;
+    private PlayerActions playerAction;
     private bool isOnFire;
     private float initialLocalScale;
     private float ammoFactor;
@@ -21,7 +21,7 @@ public class GameUI : MonoBehaviour
         ammoValue = AmmoValue.GetComponent<RectTransform>();
         ammoImage = AmmoValue.GetComponent<Image>();
         initialLocalScale = ammoValue.localScale.x;
-        playerAction = GetComponent<PlayerAction>();
+        playerAction = GetComponent<PlayerActions>();
         ammoFactor = playerAction.GetAmmoFactor();
         rechargeTime = playerAction.GetRechargeTime();
     }

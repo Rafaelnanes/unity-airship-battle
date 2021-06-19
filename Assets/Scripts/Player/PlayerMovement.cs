@@ -21,11 +21,11 @@ public class PlayerMovement : MonoBehaviour
     private float hPressValue, vPressValue;
     private float hRotate, vRotate;
     private float hThrustMovement, vThrustMovement;
-    private PlayerAction playerAction;
+    private PlayerActions playerAction;
 
     private void Start()
     {
-        playerAction = GetComponent<PlayerAction>();
+        playerAction = GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -34,11 +34,10 @@ public class PlayerMovement : MonoBehaviour
         Movement();
     }
 
-    public void OnMovementChange(InputAction.CallbackContext context)
+    public void OnMovementChange(float hPressValue, float vPressValue)
     {
-        Vector2 direction = context.ReadValue<Vector2>();
-        hPressValue = direction.x;
-        vPressValue = direction.y;
+        this.hPressValue = hPressValue;
+        this.vPressValue = vPressValue;
     }
 
     private void FixedUpdate()

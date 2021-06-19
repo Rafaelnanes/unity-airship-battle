@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAction : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
     [Header("Imunity")]
     [SerializeField] float ImunityTimeLimit = 3f;
-    [SerializeField] MeshRenderer Shield;
+    [SerializeField] GameObject Shield;
     [Header("Damage")]
     [SerializeField] float PlayerDamage = 2f;
     [Header("Ammo")]
@@ -37,14 +37,15 @@ public class PlayerAction : MonoBehaviour
         DisableImunity();
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnFire(float pressValue)
     {
+        Debug.Log(pressValue);
         if (!isShootEnabled)
         {
             return;
         }
 
-        bool isOnFire = context.ReadValue<float>() > 0;
+        bool isOnFire = pressValue > 0;
         if (isOnFire)
         {
             gameUI.DecreaseAmmo();
@@ -130,14 +131,14 @@ public class PlayerAction : MonoBehaviour
         if (isImune && Time.time - imunityTimeTriggered > ImunityTimeLimit)
         {
             isImune = false;
-            Shield.enabled = false;
+            Shield.SetActive(false);
         }
     }
 
     private void SetImunity()
     {
         isImune = true;
-        Shield.enabled = true;
+        Shield.SetActive(true);
         imunityTimeTriggered = Time.time;
     }
     #endregion

@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 1101353481519819061}
   - component: {fileID: 4260015790101228466}
   - component: {fileID: 4556743470812389059}
+  - component: {fileID: 9205203358391424411}
   m_Layer: 0
   m_Name: Airship
   m_TagString: Untagged
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1101353481097762836}
+      - m_Target: {fileID: 9205203358391424411}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMovementChange
         m_Mode: 0
@@ -312,8 +313,8 @@ MonoBehaviour:
     m_ActionName: Default/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4260015790101228466}
-        m_TargetAssemblyTypeName: PlayerAction, Assembly-CSharp
+      - m_Target: {fileID: 9205203358391424411}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ImunityTimeLimit: 3
-  Shield: {fileID: 0}
+  Shield: {fileID: 1395641536537549098}
   PlayerDamage: 2
   RechargeTime: 3.5
   AmmoFactor: 0.1
@@ -405,6 +406,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerScore: {fileID: 0}
   AmmoValue: {fileID: 0}
+--- !u!114 &9205203358391424411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103027488143853078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ea98fb3fa9a3f43b42634dd76defbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2150397303026727315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,14 +1404,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
---- !u!1 &6499866306117740891 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 939627993089405306, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
-  m_PrefabInstance: {fileID: 6286483406498224161}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6499866306117514619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 939627993089502554, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
+  m_PrefabInstance: {fileID: 6286483406498224161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6499866306117740891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 939627993089405306, guid: 77dfc0853877cad468d3ed25df812d20, type: 3}
   m_PrefabInstance: {fileID: 6286483406498224161}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6730427200562853700

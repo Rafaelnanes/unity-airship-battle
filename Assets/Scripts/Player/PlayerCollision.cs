@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private PlayerAction playerAction;
+    private PlayerActions playerAction;
 
     private void Start()
     {
-        playerAction = FindObjectOfType<PlayerAction>();
+        playerAction = FindObjectOfType<PlayerActions>();
     }
 
 

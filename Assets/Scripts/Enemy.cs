@@ -11,11 +11,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] float Hp = 10f;
     [SerializeField] int EnemyHitScore = 5;
     [SerializeField] int EnemyKillScore = 50;
-    private PlayerAction playerAction;
+    private PlayerActions playerAction;
 
     private void Start()
     {
-        playerAction = FindObjectOfType<PlayerAction>();
+        playerAction = FindObjectOfType<PlayerActions>();
     }
 
     private void OnParticleCollision(GameObject other)
