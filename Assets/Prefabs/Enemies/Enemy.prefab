@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8119731708471077582}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionEffect: {fileID: 8819706534458348668, guid: 360a0d584afe99b4e8234b61aec8239e, type: 3}
-  HitEffect: {fileID: 0}
-  Parent: {fileID: 7282727415726112908, guid: d3e29e0518a3ac64485b141706f5fcd6, type: 3}
+  HitEffect: {fileID: 1827719504080971280, guid: 10e13636da17ee64882c252073c68141, type: 3}
+  BombExplosionEffect: {fileID: 8562883991904447883, guid: 515fd80d6adb95c489d2f0795dd2de63, type: 3}
   Hp: 20
+  EnemyHitScore: 5
+  EnemyKillScore: 50

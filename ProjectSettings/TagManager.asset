@@ -9,6 +9,7 @@ TagManager:
   - SpawnRuntime
   - Ammo
   - PlayerHolder
+  - Enemy
   layers:
   - Default
   - TransparentFX

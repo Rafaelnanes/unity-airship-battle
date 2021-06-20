@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject ExplosionEffect;
     [SerializeField] GameObject HitEffect;
+    [Header("Bomb")]
+    [SerializeField] GameObject BombExplosionEffect;
     [SerializeField] float Hp = 10f;
     [SerializeField] int EnemyHitScore = 5;
     [SerializeField] int EnemyKillScore = 50;
@@ -21,27 +23,6 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.CompareTag("BombTrail"))
-        {
-            return;
-        }
-
-        if (other.CompareTag("Bomb"))
-        {
-            Hp -= playerAction.GetPlayerBombDamage();
-            if (Hp <= 0)
-            {
-                GameObject vfx = Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
-                vfx.transform.parent = parent.transform;
-                Destroy(gameObject);
-                playerAction.AddPoints(EnemyKillScore);
-            }
-            else
-            {
-                playerAction.AddPoints(EnemyHitScore);
-            }
-        }
-
         if (other.CompareTag("Ammo"))
         {
             Hp -= playerAction.GetPlayerAmmoDamage();
@@ -63,9 +44,20 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void OnParticleTrigger()
+    public void OnBombCollision()
     {
-        Debug.Log("asdads");
+        Hp -= playerAction.GetPlayerBombDamage();
+        if (Hp <= 0)
+        {
+            GameObject vfx = Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+            vfx.transform.parent = parent.transform;
+            Destroy(gameObject);
+            playerAction.AddPoints(EnemyKillScore);
+        }
+        else
+        {
+            playerAction.AddPoints(EnemyHitScore);
+        }
     }
 
 }
