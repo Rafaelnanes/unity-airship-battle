@@ -2577,7 +2577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4260015790101228466, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
       propertyPath: BombCooldown
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4260015790101228466, guid: da5e28838b3dc964fa9ec08e200dae02, type: 3}
       propertyPath: InitialActionTime

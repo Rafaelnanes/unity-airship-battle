@@ -15,6 +15,10 @@ public class BombCollision : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        if (other.name.Equals("Terrain"))
+        {
+            return;
+        }
         GameObject vfx = Instantiate(BombExplosionEffect, other.gameObject.transform.position, Quaternion.identity);
         vfx.transform.parent = parent.transform;
         Collider[] colliders = Physics.OverlapSphere(other.gameObject.transform.position, sphereRadius);
@@ -25,7 +29,6 @@ public class BombCollision : MonoBehaviour
                 Enemy enemy = collider.GetComponent<Enemy>();
                 enemy.OnBombCollision();
             }
-
         }
     }
 

@@ -112,6 +112,6 @@ MonoBehaviour:
   ExplosionEffect: {fileID: 8819706534458348668, guid: 360a0d584afe99b4e8234b61aec8239e, type: 3}
   HitEffect: {fileID: 1827719504080971280, guid: 10e13636da17ee64882c252073c68141, type: 3}
   BombExplosionEffect: {fileID: 8562883991904447883, guid: 515fd80d6adb95c489d2f0795dd2de63, type: 3}
-  Hp: 20
+  Hp: 10
   EnemyHitScore: 5
-  EnemyKillScore: 50
+  EnemyKillScore: 100
