@@ -6,6 +6,7 @@ public class PlayerShoot : MonoBehaviour
 {
     private GameUI gameUI;
     private bool canShoot;
+    private bool canBomb = true;
     private PlayerEffects playerEffects;
     private void Start()
     {
@@ -30,6 +31,25 @@ public class PlayerShoot : MonoBehaviour
             gameUI.IncreaseAmmo();
         }
         playerEffects.OnFire(isOnFire);
+    }
+
+    public void OnBomb()
+    {
+        if (canBomb)
+        {
+            playerEffects.OnBomb();
+        }
+        canBomb = false;
+    }
+
+    public void EnableBomb()
+    {
+        canBomb = true;
+    }
+
+    public bool isBombEnabled()
+    {
+        return canBomb;
     }
 
     public bool isShootEnabled()

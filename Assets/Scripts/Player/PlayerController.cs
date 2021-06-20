@@ -23,4 +23,13 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = context.ReadValue<Vector2>();
         playerMovement.OnMovementChange(direction.x, direction.y);
     }
+
+    public void OnBomb(InputAction.CallbackContext context)
+    {
+        if (context.performed && context.ReadValue<float>() > 0)
+        {
+            playerActions.OnBomb();
+        }
+
+    }
 }

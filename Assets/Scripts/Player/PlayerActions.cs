@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
+    [SerializeField] float InitialActionTime = 4f;
     [Header("Imunity")]
     [SerializeField] float ImunityTimeLimit = 3f;
     [Header("Damage")]
-    [SerializeField] float PlayerDamage = 2f;
+    [SerializeField] float PlayerAmmoDamage = 2f;
+    [SerializeField] float PlayerBombDamage = 20f;
     [Header("Ammo")]
-    [SerializeField] float AmmoRechargeTime = 3.5f;
+    [SerializeField] int BombCooldown = 5;
+    [SerializeField] float AmmoCooldown = 3.5f;
     [SerializeField] float AmmoFactor = 0.05f;
     private PlayerEffects playerEffects;
     private PlayerMovement playerControl;
@@ -42,10 +45,7 @@ public class PlayerActions : MonoBehaviour
         playerHit.OnHit(location);
     }
 
-    public float GetPlayerDamage()
-    {
-        return PlayerDamage;
-    }
+
 
     public void AddPoints(int value)
     {
@@ -71,6 +71,7 @@ public class PlayerActions : MonoBehaviour
         playerShoot.OnShoot(pressValue);
     }
 
+
     public void HasAmmo()
     {
         playerShoot.HasAmmo();
@@ -88,7 +89,38 @@ public class PlayerActions : MonoBehaviour
 
     public float GetRechargeTime()
     {
-        return AmmoRechargeTime;
+        return AmmoCooldown;
+    }
+
+    public float GetPlayerAmmoDamage()
+    {
+        return PlayerAmmoDamage;
+    }
+
+    public void OnBomb()
+    {
+        if (playerShoot.isBombEnabled())
+        {
+            playerShoot.OnBomb();
+            gameUI.TriggerBombTimmer();
+        }
+
+    }
+
+
+    public float GetPlayerBombDamage()
+    {
+        return PlayerBombDamage;
+    }
+
+    public int GetPlayerBombCooldown()
+    {
+        return BombCooldown;
+    }
+
+    public void EnableBomb()
+    {
+        playerShoot.EnableBomb();
     }
 
     #endregion
@@ -103,9 +135,10 @@ public class PlayerActions : MonoBehaviour
 
     private void EnableMovement()
     {
-        if (Time.realtimeSinceStartup > 4)
+        if (Time.realtimeSinceStartup > InitialActionTime)
         {
             playerControl.enabled = true;
+            playerShoot.enabled = true;
         }
     }
 

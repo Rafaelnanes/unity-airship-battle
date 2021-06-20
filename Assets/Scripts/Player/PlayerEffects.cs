@@ -6,44 +6,60 @@ using UnityEngine;
 public class PlayerEffects : MonoBehaviour
 {
 
-    [SerializeField] GameObject RightSmoke;
-    [SerializeField] GameObject LeftSmoke;
-    [SerializeField] GameObject CenterSmoke;
-    [SerializeField] GameObject FireThrust;
-    [SerializeField] GameObject[] Fire;
+    [SerializeField] ParticleSystem RightSmoke;
+    [SerializeField] ParticleSystem LeftSmoke;
+    [SerializeField] ParticleSystem CenterSmoke;
+    [SerializeField] ParticleSystem FireThrust;
+    [SerializeField] ParticleSystem[] Fire;
+    [SerializeField] GameObject Bomb;
+    private Transform parent;
+    private Transform playerHolder;
+
+    private void Start()
+    {
+        parent = GameObject.FindGameObjectWithTag("SpawnRuntime").transform;
+        playerHolder = GameObject.FindGameObjectWithTag("PlayerHolder").transform;
+    }
 
     public void OnDamageRight()
     {
-        RightSmoke.GetComponent<ParticleSystem>().Play();
+        RightSmoke.Play();
     }
 
     public void OnDamageLeft()
     {
-        LeftSmoke.GetComponent<ParticleSystem>().Play();
+        LeftSmoke.Play();
     }
 
     public void OnDamageCenter()
     {
-        CenterSmoke.GetComponent<ParticleSystem>().Play();
+        CenterSmoke.Play();
     }
     public void TurnOnEngine()
     {
-        FireThrust.GetComponent<ParticleSystem>().Play();
+        FireThrust.Play();
     }
 
     public void OnFire(bool isOnFire)
     {
-        foreach (GameObject localFire in Fire)
+        foreach (ParticleSystem localFire in Fire)
         {
             if (isOnFire)
             {
-                localFire.GetComponent<ParticleSystem>().Play();
+                localFire.Play();
             }
             else
             {
-                localFire.GetComponent<ParticleSystem>().Stop();
+                localFire.Stop();
             }
         }
 
+    }
+
+    public void OnBomb()
+    {
+        GameObject vfx = Instantiate(Bomb, transform.position, playerHolder.rotation);
+        vfx.transform.parent = parent.transform;
+        vfx.GetComponent<ParticleSystem>().Emit(1);
     }
 }

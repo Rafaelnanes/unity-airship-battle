@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    [SerializeField] Text PlayerScore;
+
+    [SerializeField] Text PlayerScoreText;
     [SerializeField] GameObject AmmoValue;
+    [Header("Bomb")]
+    [SerializeField] Text BombCooldownText;
+    [SerializeField] GameObject BombPanel;
     private PlayerActions playerAction;
     private bool isOnFire;
     private float initialLocalScale;
@@ -15,6 +19,7 @@ public class GameUI : MonoBehaviour
     private RectTransform ammoValue;
     private Image ammoImage;
     private float rechargeTime;
+    private float bombCooldown;
 
     private void Start()
     {
@@ -24,6 +29,7 @@ public class GameUI : MonoBehaviour
         playerAction = GetComponent<PlayerActions>();
         ammoFactor = playerAction.GetAmmoFactor();
         rechargeTime = playerAction.GetRechargeTime();
+        BombPanel.SetActive(false);
     }
 
     void Update()
@@ -32,6 +38,22 @@ public class GameUI : MonoBehaviour
         SetAmmoScale(ammoValue);
         SetAmmoColor(ammoValue);
         OutOfAmmo(ammoValue);
+        BombCooldown();
+    }
+
+    private void BombCooldown()
+    {
+        if (bombCooldown > 0)
+        {
+            BombPanel.SetActive(true);
+            bombCooldown -= Time.deltaTime;
+            BombCooldownText.text = bombCooldown.ToString("0.0");
+        }
+        else
+        {
+            BombPanel.SetActive(false);
+            playerAction.EnableBomb();
+        }
     }
 
     private void OutOfAmmo(float ammoValue)
@@ -78,7 +100,7 @@ public class GameUI : MonoBehaviour
 
     public void SetScore(int value)
     {
-        PlayerScore.text = value.ToString();
+        PlayerScoreText.text = value.ToString();
     }
 
     public void DecreaseAmmo()
@@ -89,5 +111,10 @@ public class GameUI : MonoBehaviour
     public void IncreaseAmmo()
     {
         isOnFire = false;
+    }
+
+    public void TriggerBombTimmer()
+    {
+        bombCooldown = playerAction.GetPlayerBombCooldown();
     }
 }
