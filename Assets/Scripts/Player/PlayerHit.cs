@@ -32,6 +32,11 @@ public class PlayerHit : MonoBehaviour
         }
     }
 
+    public void OnRecovery()
+    {
+        playerEffects.ResetSmokes();
+    }
+
     private void HitRight()
     {
         if (playerImunity.isImune())
@@ -40,7 +45,7 @@ public class PlayerHit : MonoBehaviour
         }
 
         ShakeRight();
-        playerEffects.OnDamageRight();
+        playerEffects.OnDamage(PlayerHit.Location.RIGHT);
         playerImunity.Enable();
     }
 
@@ -51,7 +56,7 @@ public class PlayerHit : MonoBehaviour
             return;
         }
         ShakeLeft();
-        playerEffects.OnDamageLeft();
+        playerEffects.OnDamage(PlayerHit.Location.LEFT);
         playerImunity.Enable();
     }
 
@@ -70,7 +75,7 @@ public class PlayerHit : MonoBehaviour
         {
             ShakeLeft();
         }
-        playerEffects.OnDamageCenter();
+        playerEffects.OnDamage(PlayerHit.Location.CENTER);
         playerImunity.Enable();
     }
 

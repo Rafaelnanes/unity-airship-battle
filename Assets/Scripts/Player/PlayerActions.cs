@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] float InitialActionTime = 4f;
-    [Header("Imunity")]
+    [Header("Timmers")]
     [SerializeField] float ImunityTimeLimit = 3f;
+    [SerializeField] float DoubleDamageLimit = 5f;
     [Header("Damage")]
     [SerializeField] float PlayerAmmoDamage = 2f;
     [SerializeField] float PlayerBombDamage = 20f;
@@ -20,6 +21,7 @@ public class PlayerActions : MonoBehaviour
     private PlayerShoot playerShoot;
     private PlayerImunity playerImunity;
     private PlayerHit playerHit;
+    private PlayerDamage playerDamage;
     private GameUI gameUI;
     private int playerScore;
 
@@ -31,6 +33,8 @@ public class PlayerActions : MonoBehaviour
         playerHit = GetComponent<PlayerHit>();
         playerImunity = GetComponent<PlayerImunity>();
         gameUI = GetComponent<GameUI>();
+        playerDamage = GetComponent<PlayerDamage>();
+        playerDamage.SetDamage(PlayerAmmoDamage);
     }
 
     private void Update()
@@ -45,13 +49,25 @@ public class PlayerActions : MonoBehaviour
         playerHit.OnHit(location);
     }
 
-
-
     public void AddPoints(int value)
     {
         playerScore += value;
         gameUI.SetScore(playerScore);
     }
+
+    #region Items
+
+    public void SetDoubleDamage()
+    {
+        playerDamage.OnDoubleDamage();
+    }
+
+    public void SetRecovery()
+    {
+        playerHit.OnRecovery();
+    }
+
+    #endregion
 
     #region Imunity
     private void DisableImunity()
@@ -70,7 +86,6 @@ public class PlayerActions : MonoBehaviour
     {
         playerShoot.OnShoot(pressValue);
     }
-
 
     public void HasAmmo()
     {
@@ -94,7 +109,12 @@ public class PlayerActions : MonoBehaviour
 
     public float GetPlayerAmmoDamage()
     {
-        return PlayerAmmoDamage;
+        return playerDamage.GetDamage();
+    }
+
+    public float GetDoubleDamageTimeLimit()
+    {
+        return DoubleDamageLimit;
     }
 
     public void OnBomb()
@@ -106,7 +126,6 @@ public class PlayerActions : MonoBehaviour
         }
 
     }
-
 
     public float GetPlayerBombDamage()
     {

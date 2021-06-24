@@ -11,13 +11,35 @@ public class PlayerCollision : MonoBehaviour
         playerAction = FindObjectOfType<PlayerActions>();
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Name: {name} -> Collidiu em: {collision.gameObject.name}");
+        if (other.CompareTag("Item"))
+        {
+            OnGetItem(other);
+
+        }
+        else
+        {
+            OnGetHit();
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnGetItem(Collider other)
+    {
+        Item.ItemType itemType = other.GetComponent<Item>().getItem();
+        if (Item.ItemType.DOUBLE_DAMAGE.Equals(itemType))
+        {
+            playerAction.SetDoubleDamage();
+        }
+
+        if (Item.ItemType.RECOVERY.Equals(itemType))
+        {
+            playerAction.SetRecovery();
+        }
+        Destroy(other.gameObject);
+    }
+
+    private void OnGetHit()
     {
         if (name.Equals("Collider Left"))
         {
